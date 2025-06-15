@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta charset="utf-3">
+        <title></title>
+    </head>
+    <body onload="fetchContacts()">
+        <div id="table">contacts loading...</div>
+        <button id="refresh" type="button">refresh</button>
+        <button id="addcontact" type="button">Add contacts</button>
+
+        <script src="config.js"></script>
+        <script>
+            function fetchContacts(){
+                 fetch(rootpath + "controller/get-contacts/")
+                .then(function(response){
+                   return response.json();
+                })
+                .then(function(data){
+                   displayOutput(data);
+                   //console.log(data);
+                })
+            
+            }
+
+            function displayOutput(data){
+                output = "<table>";
+
+                for(a in data){
+                    output += 
+                        <tr>
+                            <td><img src="${rootPath}controller/uploads/${data[a].avatar}"/></td>
+                            <td><h5>$(data[a].firstname)</h5></td>
+                            <td><h5>$(data[a].lastname)</h5></td>
+                        </tr>
+
+                }
+                    output += "</table>";
+                    document.getElementById("table").innerHTML = output;
+            }
+            
+        </script>
+    </body>
+</html>
