@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <meta charset="utf3">
+        <title></title>
+    </head>
+    <body>
+        <br/>
+        <form id="editform">
+            <label for="firstname">First name</label>
+            <input type="text" name="firstname" id="firstname"><br/>
+            <label for="lastname">Lastname</label>
+            <input type="text" name="lastname" id="lastname"><br/>
+            <label for="mobile">Mobile</label>
+            <input type="text" name="mobile" id="mobile"><br/>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email"><br/>
+            <label for="avatar">Select a file</label><br/>
+            <input type="file" name="avatar" id="avatar"></br/>
+            <button type="submit" id="submitform">Submit</button>
+        </form>
+        <br/>
+        <button id="homeLink" type="button">Home</button>
+
+        <script src="config.js"></script>
+        <script>
+            document.getElementById("submitform").addEventListener('click', submitforn);
+            document.getElementById("homeLink").addEventListener('click', homeLink);
+
+            function submitforn(e){
+                e.preventDefault();
+
+                const form = new FormData(document.querySelector('#editform'));
+                form.append('apikey', apikey);
+
+                fetch(rootpath +'controller/insert-contact/',{
+                    method: 'POST',
+                    headers: {'Accept': 'application/json, *.*'},
+                    body:form
+                })
+                .then(function(response){
+                    return response.text();
+                })
+                .then(function(data){
+                    if(data == "1"){
+                        alert("contact added.");
+                        homeLink();
+                    }else{
+                        alert(data);
+                        homeLink();
+                    }
+                })
+            }
+            
+            function homeLink(){
+                window.open("index.html", "_self");
+            }
+
+        </script>
+    </body>
+</html>
