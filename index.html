@@ -1,43 +1,53 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-3">
-        <title></title>
+        <meta charset="UTF-8">
+        <title>Contact</title>
     </head>
-    <body onload="fetchContacts()">
-        <div id="table">contacts loading...</div>
-        <button id="refresh" type="button">refresh</button>
-        <button id="addcontact" type="button">Add contacts</button>
+    <body onload="fetchContact()">
+
+        <div id="table">contact loading...</div>
+        <button id="refresh" type="button">Refresh</button>
+        <button id="addcontact" type="button">Add Contact</button>
 
         <script src="config.js"></script>
         <script>
-            function fetchContacts(){
-                 fetch(rootpath + "controller/get-contacts/")
+            document.getElementById("refresh").addEventListener('click', fetchContact);
+            document.getElementById("addcontact").addEventListener('click', addcontact);
+            function fetchContact(){
+                fetch("rootpath + controller/get-contacts/")
                 .then(function(response){
-                   return response.json();
+                    return response.json();
                 })
                 .then(function(data){
-                   displayOutput(data);
-                   //console.log(data);
+                    displayOutput(data);
+                    //console.log(data);
                 })
-            
             }
 
             function displayOutput(data){
                 output = "<table>";
 
-                for(a in data){
-                    output += 
-                        <tr>
-                            <td><img src="${rootPath}controller/uploads/${data[a].avatar}"/></td>
-                            <td><h5>$(data[a].firstname)</h5></td>
-                            <td><h5>$(data[a].lastname)</h5></td>
-                        </tr>
-
-                }
+                    for(let a in data){
+                        output +=`
+                            <tr onclick="editContact(${data[a].id})">
+                                <td><img src="$(rootpath)controller/uploads/${dara[a].avatar}"width="40"/></td>
+                                <td><h5>${data[a].firstname}</h5></td>
+                                <td><h5>${data[a].lastname}</h5></td>
+                            </tr>
+                        `    
+                    }
                     output += "</table>";
                     document.getElementById("table").innerHTML = output;
+                    
             }
-            
+            function addcontact(){
+                window.open("add-contact.html", "_self");
+            }
+
+            function editcontact(id){
+                window.open("edit-contact,html?id"  + id, "_self");
+            } 
         </script>
     </body>
 </html>
