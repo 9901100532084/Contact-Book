@@ -1,11 +1,27 @@
 <html>
     <head>
-        <meta charset="UTF-3">
-        <title></title>
+        <meta charset="UTF-8">
+        <title>API Key</title>
+        <meta name="viewport"content="width=device-width,initial-scale=1.0">
+        <style>
+            body{
+                font-family: Arial, sana-serif;
+                padding: 20px;
+                max-width: 400px;
+                margin: auto;
+            }
+            input,button{
+                padding: 10px;
+                margin-top: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+        </style>    
     </head>
     <body onload="getcontacta()">
+        <h2>Please enter a valid API Key</h2>
         <div id="avatarImage"></div>
-        <form>
+        <form id="apiform">
             <label for="firstname">firstname</label>
             <input type="text" name="firstname" id="firstname" readonly><br/>
             <label for="lastname">Lastname</label>
@@ -16,8 +32,10 @@
             <input type="text" name="email" id="email" readonly><br/>
             <label for="avatar" id="avatarLable" hidden>Change profile image</label><br/>
             <input type="file" name="avatar" id="avatar" hidden><br/>
+            <input type="text" id="apiKey" name="apiKey" placeholder="Enter your API Key" required/>
             <br/>
             <button type="submit" id="submitform" hidden></button>
+            <button type="submit">Submit</button>
         </form>
         <br/><br/>
         <button id="homeLink" type="button">Home</button>
@@ -26,11 +44,20 @@
 
         <script src="config.js"></script>
         <script>
-            var id =getId();
+            const rootpath ="https://mysite.itvarsity.org/api/ContactBook";
+            var id =getId()
             document.getElementById("homeLink").addEventListener('click', homeLink);
             document.getElementById("editcontact").addEventListener('click', editcontact);
             document.getElementById("submitform").addEventListener('click', submitform);
             document.getElementById("deleteContact").addEventListener('click', deleteContact);
+            document.getElementById("apiform").addEventListener("submit",function(e){
+                e.preventDefault();
+
+                const apiKey =document.getElementById("apikey").value.trim();
+                //URLSearchParams for safer query string handing
+            })
+
+
             
             
             function getId(){
@@ -76,6 +103,7 @@
                 document.getElementById("submitform").hidden = false;
 
             }
+
 
             function submitform(e){
                 e.preventDefault();
