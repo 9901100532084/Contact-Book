@@ -1,7 +1,7 @@
 <html>
     <head>
-        <meta charset="utf3">
-        <title></title>
+        <meta charset="UTF-8">
+        <title>Edit Contact</title>
     </head>
     <body>
         <br/>
@@ -31,6 +31,7 @@
 
                 const form = new FormData(document.querySelector('#editform'));
                 form.append('apikey', apikey);
+                //make sure apikey is define in config.js
 
                 fetch(rootpath +'controller/insert-contact/',{
                     method: 'POST',
